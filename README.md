@@ -59,3 +59,12 @@ GitHub Actions runs lint, pytest, the frontend checks, and `bash -n` on every pu
 Ключей в репозитории нет — берётся твой собственный конфиг из Hiddify. Как прогнать тесты — в разделе Tests выше.
 
 License: MIT
+
+## How this was built and tested
+
+- This is a new project, and I'm still learning Python.
+- Most of the code was written with AI assistance (Cursor / Claude, Grok Bot) and reviewed by an AI cloud agent.
+- Tested on my Steam Deck OLED 512 GB, SteamOS 3.8, Decky Loader 3.2.9, with the `hiddify-tun` systemd service.
+- Automated tests (49 Python tests with pytest, 9 frontend tests with `node --test`, plus ruff lint and a `bash -n` check of `install.sh`) run on every push via GitHub Actions.
+- Not tested: Steam Deck LCD, other Decky Loader versions, setups without the `hiddify-tun` service.
+- Bug reports are welcome. Please open an issue.
