@@ -1,0 +1,17 @@
+[Unit]
+Description=Hiddify TUN (survives game mode)
+After=network-online.target NetworkManager.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/home/deck/.local/share/hiddify-tun/run.sh
+Restart=on-failure
+RestartSec=3
+StartLimitIntervalSec=300
+StartLimitBurst=20
+TimeoutStopSec=15
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target
