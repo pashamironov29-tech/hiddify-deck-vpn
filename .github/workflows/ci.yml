@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: lint and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dev tools
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Lint
+        run: ruff check plugin tests
+
+      - name: Backend tests
+        run: pytest
+
+      - name: Frontend checks
+        run: node --test tests/frontend.test.mjs
+
+      - name: Shell syntax
+        run: bash -n install.sh && bash -n run.sh
